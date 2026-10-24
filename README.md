@@ -12,7 +12,7 @@ This project combines a small plug-in, a snapshot poller and Git to give you:
 
 ![Architecture](docs/images/architecture.png)
 
-> Read the write-up: [docs/medium-article.md](docs/medium-article.md) · Background research: [docs/research-report.md](docs/research-report.md)
+> 📝 Read the write-up on Medium: [Who changed my form? Building a customization audit trail for Dataverse](https://bonanipaulchaudhury.medium.com/who-changed-my-form-building-a-customization-audit-trail-for-dataverse-a94c21cd7b35) · Background research: [docs/research-report.md](docs/research-report.md)
 
 ## How it works
 

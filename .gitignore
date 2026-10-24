@@ -1,0 +1,12 @@
+# Build output
+bin/
+obj/
+*.user
+.vs/
+
+# Strong-name key - generate your own with scripts/New-SigningKey.ps1
+*.snk
+
+# Environment-specific output (contains environment metadata and user identities)
+snapshots/
+results/

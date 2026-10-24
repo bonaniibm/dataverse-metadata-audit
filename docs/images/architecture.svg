@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="800" viewBox="0 0 1400 800" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#4A5568"/>
+    </marker>
+    <style>
+      .t { font-size: 17px; font-weight: 600; fill: #1A202C; }
+      .s { font-size: 13.5px; fill: #4A5568; }
+      .h { font-size: 20px; font-weight: 700; }
+      .l { font-size: 13px; fill: #4A5568; font-style: italic; }
+      .ln { stroke: #4A5568; stroke-width: 1.8; fill: none; marker-end: url(#a); }
+      .dv { fill: #FFFFFF; stroke: #2B6CB0; stroke-width: 1.5; }
+      .pl { fill: #FFFFFF; stroke: #2F855A; stroke-width: 1.5; }
+      .hl { fill: #FFF8E6; stroke: #C05621; stroke-width: 2; }
+    </style>
+  </defs>
+  <rect width="1400" height="800" fill="#FFFFFF"/>
+  <text x="700" y="40" text-anchor="middle" font-size="24" font-weight="700" fill="#1A202C">Dataverse customization tracker: architecture</text>
+
+  <!-- Dataverse -->
+  <rect x="30" y="70" width="640" height="560" rx="14" fill="#EAF2FB" stroke="#2B6CB0" stroke-width="2"/>
+  <text x="50" y="102" class="h" fill="#2B6CB0">Dataverse environment</text>
+
+  <rect x="55" y="125" width="270" height="70" rx="10" class="dv"/>
+  <text x="190" y="155" text-anchor="middle" class="t">Maker</text>
+  <text x="190" y="178" text-anchor="middle" class="s">edits a form, view or column</text>
+
+  <rect x="55" y="245" width="270" height="70" rx="10" class="dv"/>
+  <text x="190" y="275" text-anchor="middle" class="t">Publish / PublishAll</text>
+  <text x="190" y="298" text-anchor="middle" class="s">SDK messages (PublishXml requests)</text>
+
+  <rect x="55" y="365" width="270" height="80" rx="10" class="hl"/>
+  <text x="190" y="396" text-anchor="middle" class="t">PublishLogger plug-in</text>
+  <text x="190" y="418" text-anchor="middle" class="s">PostOperation · synchronous</text>
+  <text x="190" y="436" text-anchor="middle" class="s">writes as SYSTEM, never blocks</text>
+
+  <rect x="55" y="495" width="270" height="80" rx="10" class="hl"/>
+  <text x="190" y="526" text-anchor="middle" class="t">Publish log table</text>
+  <text x="190" y="548" text-anchor="middle" class="s">mda_customizationpublishlog</text>
+  <text x="190" y="566" text-anchor="middle" class="s">who · when · ParameterXml</text>
+
+  <path d="M190,195 L190,243" class="ln"/>
+  <text x="200" y="224" class="l">Save &amp; publish</text>
+  <path d="M190,315 L190,363" class="ln"/>
+  <text x="200" y="344" class="l">execution context</text>
+  <path d="M190,445 L190,493" class="ln"/>
+  <text x="200" y="474" class="l">Create row</text>
+
+  <rect x="375" y="125" width="270" height="64" rx="10" class="dv"/>
+  <text x="510" y="151" text-anchor="middle" class="t">Forms: systemform</text>
+  <text x="510" y="174" text-anchor="middle" class="s">FormXml · publishedon</text>
+
+  <rect x="375" y="205" width="270" height="64" rx="10" class="dv"/>
+  <text x="510" y="231" text-anchor="middle" class="t">Views: savedquery</text>
+  <text x="510" y="254" text-anchor="middle" class="s">FetchXml · LayoutXml · modifiedby</text>
+
+  <rect x="375" y="285" width="270" height="64" rx="10" class="dv"/>
+  <text x="510" y="311" text-anchor="middle" class="t">Table and column definitions</text>
+  <text x="510" y="334" text-anchor="middle" class="s">metadata, no user recorded</text>
+
+  <rect x="375" y="365" width="270" height="64" rx="10" class="dv"/>
+  <text x="510" y="391" text-anchor="middle" class="t">Solution history</text>
+  <text x="510" y="414" text-anchor="middle" class="s">imports and publishes, no user</text>
+
+  <path d="M325,160 L373,157" class="ln"/>
+
+  <!-- Poller -->
+  <rect x="720" y="70" width="650" height="420" rx="14" fill="#ECF7EF" stroke="#2F855A" stroke-width="2"/>
+  <text x="740" y="102" class="h" fill="#2F855A">Snapshot poller</text>
+  <text x="915" y="102" class="s">scheduled · read-only · PowerShell</text>
+
+  <rect x="745" y="125" width="300" height="64" rx="10" class="pl"/>
+  <text x="895" y="151" text-anchor="middle" class="t">Forms collector</text>
+  <text x="895" y="174" text-anchor="middle" class="s">publishedon watermark + id list</text>
+
+  <rect x="745" y="205" width="300" height="64" rx="10" class="pl"/>
+  <text x="895" y="231" text-anchor="middle" class="t">Views collector</text>
+  <text x="895" y="254" text-anchor="middle" class="s">modifiedon watermark + id list</text>
+
+  <rect x="745" y="285" width="300" height="64" rx="10" class="pl"/>
+  <text x="895" y="311" text-anchor="middle" class="t">Columns collector</text>
+  <text x="895" y="334" text-anchor="middle" class="s">RetrieveMetadataChanges + stamp</text>
+
+  <rect x="745" y="365" width="300" height="80" rx="10" class="pl"/>
+  <text x="895" y="393" text-anchor="middle" class="t">Attribution reader</text>
+  <text x="895" y="415" text-anchor="middle" class="s">publish log rows · solution history</text>
+  <text x="895" y="433" text-anchor="middle" class="s">rows in the poll window</text>
+
+  <path d="M645,157 L743,157" class="ln"/>
+  <path d="M645,237 L743,237" class="ln"/>
+  <path d="M645,317 L743,317" class="ln"/>
+  <path d="M645,390 L743,390" class="ln"/>
+  <path d="M325,535 L695,535 L695,425 L743,425" class="ln"/>
+  <text x="694" y="148" class="l" text-anchor="middle">Web API</text>
+
+  <rect x="1085" y="125" width="260" height="110" rx="10" class="pl"/>
+  <text x="1215" y="155" text-anchor="middle" class="t">Git snapshot repo</text>
+  <text x="1215" y="180" text-anchor="middle" class="s">one file per component</text>
+  <text x="1215" y="200" text-anchor="middle" class="s">forms/ views/ columns/</text>
+  <text x="1215" y="220" text-anchor="middle" class="s">git diff = what changed</text>
+
+  <rect x="1085" y="275" width="260" height="90" rx="10" class="pl"/>
+  <text x="1215" y="305" text-anchor="middle" class="t">Correlation engine</text>
+  <text x="1215" y="328" text-anchor="middle" class="s">time window · table · id</text>
+  <text x="1215" y="348" text-anchor="middle" class="s">assigns a confidence label</text>
+
+  <path d="M1045,157 L1065,157 L1065,317 L1045,317 M1045,237 L1065,237" stroke="#4A5568" stroke-width="1.8" fill="none"/>
+  <path d="M1065,180 L1083,180" class="ln"/>
+  <path d="M1215,235 L1215,273" class="ln"/>
+  <path d="M1045,405 L1215,405 L1215,367" class="ln"/>
+
+  <!-- Output -->
+  <rect x="720" y="530" width="650" height="240" rx="14" fill="#F3EEFB" stroke="#6B46C1" stroke-width="2"/>
+  <text x="740" y="562" class="h" fill="#6B46C1">Change log for each run (changes/*.md, *.json)</text>
+  <rect x="745" y="580" width="600" height="170" rx="8" fill="#FFFFFF" stroke="#B794F4"/>
+  <g font-family="Consolas, Menlo, monospace" font-size="14.5" fill="#1A202C" xml:space="preserve">
+    <text x="765" y="610">change   kind  table    name</text>
+    <text x="765" y="635">modified view  account  Active Accounts</text>
+    <text x="765" y="665" fill="#2F855A">who:        maker@contoso.com</text>
+    <text x="765" y="690" fill="#2F855A">confidence: corroborated</text>
+    <text x="765" y="715" fill="#4A5568">evidence:   Publish of table account 14:50Z</text>
+    <text x="765" y="738" fill="#4A5568">diff:       + accountnumber column</text>
+  </g>
+  <path d="M1300,365 L1300,528" class="ln"/>
+
+  <!-- Purview (future) -->
+  <rect x="30" y="660" width="640" height="110" rx="14" fill="#FFFFFF" stroke="#A0AEC0" stroke-width="1.8" stroke-dasharray="7 6"/>
+  <text x="50" y="692" class="t" fill="#4A5568">Planned: Microsoft Purview activity log</text>
+  <text x="50" y="718" class="s">Logs the SDK message with the user's UPN, in production environments only.</text>
+  <text x="50" y="740" class="s">Covers metadata calls that plug-ins can't see, like CreateAttribute and ImportSolution.</text>
+  <text x="50" y="760" class="s">It records no before/after values and arrives 60 to 90 minutes late.</text>
+</svg>

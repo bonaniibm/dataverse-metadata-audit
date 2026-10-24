@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="880" viewBox="0 0 1400 880" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2D3748"/>
+    </marker>
+    <style>
+      .hd { font-size: 16px; font-weight: 700; fill: #1A202C; }
+      .m { font-size: 14px; fill: #1A202C; }
+      .life { stroke: #A0AEC0; stroke-width: 1.5; stroke-dasharray: 6 6; }
+      .call { stroke: #2D3748; stroke-width: 1.8; marker-end: url(#a); fill: none; }
+      .ret { stroke: #718096; stroke-width: 1.6; stroke-dasharray: 6 4; marker-end: url(#a); fill: none; }
+      .num { font-size: 12px; font-weight: 700; fill: #FFFFFF; }
+    </style>
+  </defs>
+  <rect width="1400" height="880" fill="#FFFFFF"/>
+  <text x="700" y="38" text-anchor="middle" font-size="24" font-weight="700" fill="#1A202C">From a maker's edit to an attributed change: sequence</text>
+
+  <!-- lanes: Maker 110, Dataverse 330, Plug-in 560, Publish log 780, Poller 1020, Git 1270 -->
+  <g>
+    <rect x="40" y="65" width="140" height="48" rx="8" fill="#EAF2FB" stroke="#2B6CB0"/><text x="110" y="95" text-anchor="middle" class="hd">Maker</text>
+    <rect x="250" y="65" width="160" height="48" rx="8" fill="#EAF2FB" stroke="#2B6CB0"/><text x="330" y="95" text-anchor="middle" class="hd">Dataverse</text>
+    <rect x="470" y="65" width="180" height="48" rx="8" fill="#FFF8E6" stroke="#C05621"/><text x="560" y="95" text-anchor="middle" class="hd">PublishLogger</text>
+    <rect x="700" y="65" width="160" height="48" rx="8" fill="#FFF8E6" stroke="#C05621"/><text x="780" y="95" text-anchor="middle" class="hd">Publish log</text>
+    <rect x="930" y="65" width="180" height="48" rx="8" fill="#ECF7EF" stroke="#2F855A"/><text x="1020" y="95" text-anchor="middle" class="hd">Snapshot poller</text>
+    <rect x="1190" y="65" width="160" height="48" rx="8" fill="#ECF7EF" stroke="#2F855A"/><text x="1270" y="95" text-anchor="middle" class="hd">Git repo</text>
+  </g>
+  <line x1="110" y1="113" x2="110" y2="860" class="life"/>
+  <line x1="330" y1="113" x2="330" y2="860" class="life"/>
+  <line x1="560" y1="113" x2="560" y2="860" class="life"/>
+  <line x1="780" y1="113" x2="780" y2="860" class="life"/>
+  <line x1="1020" y1="113" x2="1020" y2="860" class="life"/>
+  <line x1="1270" y1="113" x2="1270" y2="860" class="life"/>
+
+  <!-- Phase 1 -->
+  <rect x="20" y="128" width="1360" height="240" rx="10" fill="#FFFBF2" stroke="#F6E0B5"/>
+  <text x="34" y="150" font-size="13" font-weight="700" fill="#C05621">REAL TIME, INSIDE THE PUBLISH TRANSACTION</text>
+
+  <circle cx="135" cy="180" r="10" fill="#2B6CB0"/><text x="135" y="184" text-anchor="middle" class="num">1</text>
+  <path d="M110,195 L328,195" class="call"/><text x="150" y="187" class="m">Edit view, Save</text>
+
+  <circle cx="135" cy="230" r="10" fill="#2B6CB0"/><text x="135" y="234" text-anchor="middle" class="num">2</text>
+  <path d="M110,245 L328,245" class="call"/><text x="150" y="237" class="m">Publish (ParameterXml)</text>
+
+  <circle cx="355" cy="280" r="10" fill="#C05621"/><text x="355" y="284" text-anchor="middle" class="num">3</text>
+  <path d="M330,295 L558,295" class="call"/><text x="372" y="287" class="m">PostOperation: UserId, ParameterXml</text>
+
+  <circle cx="585" cy="330" r="10" fill="#C05621"/><text x="585" y="334" text-anchor="middle" class="num">4</text>
+  <path d="M560,345 L778,345" class="call"/><text x="602" y="337" class="m">Create log row</text>
+
+  <!-- Phase 2 -->
+  <rect x="20" y="385" width="1360" height="470" rx="10" fill="#F5FBF7" stroke="#C6E8D2"/>
+  <text x="34" y="407" font-size="13" font-weight="700" fill="#2F855A">EVERY 5 TO 15 MINUTES, OUTSIDE DATAVERSE (READ-ONLY)</text>
+
+  <circle cx="1000" cy="437" r="10" fill="#2F855A"/><text x="1000" y="441" text-anchor="middle" class="num">5</text>
+  <path d="M1020,452 L332,452" class="call"/><text x="590" y="444" class="m">GET savedqueries / systemforms changed since watermark</text>
+
+  <circle cx="1000" cy="487" r="10" fill="#2F855A"/><text x="1000" y="491" text-anchor="middle" class="num">6</text>
+  <path d="M1020,502 L332,502" class="call"/><text x="590" y="494" class="m">RetrieveMetadataChanges(ClientVersionStamp)</text>
+
+  <path d="M330,535 L1018,535" class="ret"/><text x="590" y="527" class="m" fill="#4A5568">FetchXml / FormXml / changed columns + new stamp</text>
+
+  <circle cx="1045" cy="570" r="10" fill="#2F855A"/><text x="1045" y="574" text-anchor="middle" class="num">7</text>
+  <path d="M1020,585 L1268,585" class="call"/><text x="1062" y="577" class="m">write files, git add, git diff</text>
+  <path d="M1270,620 L1022,620" class="ret"/><text x="1062" y="612" class="m" fill="#4A5568">M views/account/{id}.xml</text>
+
+  <circle cx="1000" cy="655" r="10" fill="#2F855A"/><text x="1000" y="659" text-anchor="middle" class="num">8</text>
+  <path d="M1020,670 L782,670" class="call"/><text x="800" y="662" class="m">GET publish logs in window</text>
+  <path d="M780,705 L1018,705" class="ret"/><text x="800" y="697" class="m" fill="#4A5568">Publish · maker@contoso.com · account</text>
+
+  <circle cx="1045" cy="740" r="10" fill="#2F855A"/><text x="1045" y="744" text-anchor="middle" class="num">9</text>
+  <path d="M1020,752 C1100,752 1100,782 1022,782" class="call"/><text x="1110" y="760" class="m">correlate: same table, in window</text>
+  <text x="1110" y="779" class="m" font-weight="700" fill="#2F855A">corroborated</text>
+
+  <circle cx="1045" cy="815" r="10" fill="#2F855A"/><text x="1045" y="819" text-anchor="middle" class="num">10</text>
+  <path d="M1020,830 L1268,830" class="call"/><text x="1062" y="822" class="m">commit snapshot + change log</text>
+</svg>
